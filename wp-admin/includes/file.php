@@ -331,11 +331,12 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
 	if ( false === @ move_uploaded_file( $file['tmp_name'], $new_file ) )
 		return $upload_error_handler( $file, sprintf( __('The uploaded file could not be moved to %s.' ), $uploads['path'] ) );
 
-	// Set correct file permissions
-	$stat = stat( dirname( $new_file ));
-	$perms = $stat['mode'] & 0000666;
-	@ chmod( $new_file, $perms );
-
+  if(!WP_IS_SAE) {
+  	// Set correct file permissions
+  	$stat = stat( dirname( $new_file ));
+  	$perms = $stat['mode'] & 0000666;
+  	@ chmod( $new_file, $perms );
+  }
 	// Compute the URL
 	$url = $uploads['url'] . "/$filename";
 
@@ -455,10 +456,12 @@ function wp_handle_sideload( &$file, $overrides = false, $time = null ) {
 		return $upload_error_handler( $file, sprintf( __('The uploaded file could not be moved to %s.' ), $uploads['path'] ) );
 	}
 
-	// Set correct file permissions
-	$stat = stat( dirname( $new_file ));
-	$perms = $stat['mode'] & 0000666;
-	@ chmod( $new_file, $perms );
+  if(!WP_IS_SAE) {
+  	// Set correct file permissions
+  	$stat = stat( dirname( $new_file ));
+  	$perms = $stat['mode'] & 0000666;
+  	@ chmod( $new_file, $perms );
+  }
 
 	// Compute the URL
 	$url = $uploads['url'] . "/$filename";
