@@ -12,19 +12,38 @@
  *
  * @package WordPress
  */
+ 
+/** 是否部署到SAE上 **/
+define('WP_IS_SAE',true);
 
 // ** MySQL 设置 - 具体信息来自您正在使用的主机 ** //
 /** WordPress 数据库的名称 */
-define('DB_NAME', SAE_MYSQL_DB);
+if(WP_IS_SAE) {
+  define('DB_NAME', SAE_MYSQL_DB);
+} else {
+  define('DB_NAME', 'chyblog');
+}
 
 /** MySQL 数据库用户名 */
-define('DB_USER', SAE_MYSQL_USER);
+if(WP_IS_SAE) {
+  define('DB_USER', SAE_MYSQL_USER);
+} else {
+  define('DB_USER', 'chyblog');
+}
 
 /** MySQL 数据库密码 */
-define('DB_PASSWORD', SAE_MYSQL_PASS);
+if(WP_IS_SAE) {
+  define('DB_PASSWORD', SAE_MYSQL_PASS);
+} else {
+  define('DB_PASSWORD', 'chyblog');
+}
 
 /** MySQL 主机 */
-define('DB_HOST', SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT);
+if(WP_IS_SAE) {
+  define('DB_HOST', SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT);
+} else {
+  define('DB_HOST', '127.0.0.1:3306');
+}
 
 /** 创建数据表时默认的文字编码 */
 define('DB_CHARSET', 'utf8');
@@ -34,9 +53,6 @@ define('DB_COLLATE', '');
 
 /** 设置启用多数据库。这一项并非必须，共需要此功能的人使用，但是加了也无妨。**/
 define('WP_USE_MULTIPLE_DB', true);
-
-/** 是否部署到SAE上 **/
-define('WP_IS_SAE',true);
 
 /**#@+
  * 身份认证密匙设定。
